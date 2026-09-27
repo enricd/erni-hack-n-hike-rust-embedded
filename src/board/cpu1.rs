@@ -12,7 +12,7 @@ use static_cell::StaticCell;
 
 use crate::{
     board::i2c,
-    capabilities::{audio, backlight, imu, light, network, proximity, touch},
+    capabilities::{audio, backlight, camera, imu, light, network, proximity, touch},
 };
 
 /// Size of the one CPU1 stack. All CPU1 tasks share it, because one executor
@@ -51,6 +51,9 @@ pub(super) struct Cpu1 {
     /// Signals shared with the light and the proximity handles. One LTR-553
     /// task publishes to both. `None` when no sensor answered.
     pub(super) light: Option<(light::Runtime, proximity::Runtime)>,
+    /// Signal shared with the camera handle, for auto adjust requests.
+    /// `None` when no camera answered.
+    pub(super) camera: Option<camera::Runtime>,
 }
 
 /// Start the second core with its own async executor and the capability
@@ -88,5 +91,8 @@ fn run(cpu1: Cpu1) {
             light::spawn(&spawner, system_bus, light, proximity);
         }
         audio::spawn(&spawner, cpu1.audio_resources, cpu1.audio);
+        if let Some(camera) = cpu1.camera {
+            camera::spawn(&spawner, system_bus, camera);
+        }
     });
 }

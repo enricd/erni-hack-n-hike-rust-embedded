@@ -10,7 +10,7 @@
     },
     "runArgs": [
         // Files you create in the container belong to you on the host.
-        "--userns=keep-id",
+        // "--userns=keep-id",
         // Lets the container reach services on the host's localhost.
         "--net=host"
     ],

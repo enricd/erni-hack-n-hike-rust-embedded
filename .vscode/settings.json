@@ -9,7 +9,7 @@
     "editor.minimap.size": "fill",
     // do not show the right sidebar because we need the screen space for a two column editor layout
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "chat.disableAIFeatures": true,
+    "chat.disableAIFeatures": false,
     // Keep rust-analyzer snappy by using a separate target dir inside the cargo target dir
     "rust-analyzer.cargo.targetDir": true,
     // adjust explorer view to show tasks
@@ -23,7 +23,7 @@
     // open readme on startup and use markdown preview for it
     "workbench.startupEditor": "readme",
     "workbench.editorAssociations": {
-        "README.md": "vscode.markdown.preview.editor"
+        "*.md": "vscode.markdown.preview.editor"
     },
     // show spaces as dots and tabs as arrows
     "editor.renderWhitespace": "all",
